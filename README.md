@@ -102,6 +102,11 @@ The primary purpose of this plugin is to empower WordPress bloggers to create dy
 ## Source Code ##
 The WordPress plugin [related FAQ page](https://github.com/techaroha/enlighter-extension-with-run-button) 
 
+## Demo URL ##
+Demo URL of plugin to add Run Button in WordPress Blog [Demo URL](https://blog.newtum.com/multiplication-table-in-python-using-function/) 
+
+This demo blog page on wordpress display the code in Python to print Mulitplication Table in Python Using Function. With the help of Plugin a run button is added which run the code on default [Newtum Python Online Compiler](https://newtum.com/compiler/python-online-compiler)
+
 
 ## Frequently Asked Questions ##
 
