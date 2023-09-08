@@ -20,7 +20,7 @@ The plugin comes with a default compiler, the Newtum Compiler, but it doesn't st
 With the "Enlighter – Extension With Run Button," you can elevate your coding tutorials, examples, and explanations, making them more engaging and interactive for your audience.
 
 * [Defualt Compiler on Run Button](https://newtum.com/compiler/python-online-compiler) 
-* [Get the API Key for Another Online Compiler](https://techaroha.com/ai-compiler/)
+* [Get the API Key for White Label Online Compiler](https://techaroha.com/ai-compiler/)
 * [Source Code URL](https://github.com/techaroha/enlighter-extension-with-run-button)
 
 ### Plugin Features ###
