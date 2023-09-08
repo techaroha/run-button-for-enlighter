@@ -21,7 +21,7 @@ With the "Enlighter – Extension With Run Button," you can elevate your coding 
 
 * [Defualt Compiler on Run Button](https://newtum.com/compiler/python-online-compiler) 
 * [Get the API Key for Another Online Compiler](https://techaroha.com/ai-compiler/)
-* [Source Code URL](https://github.com/EnlighterJS/documentation/tree/master/wordpress)
+* [Source Code URL](https://github.com/techaroha/enlighter-extension-with-run-button)
 
 ### Plugin Features ###
 
@@ -100,7 +100,7 @@ All modern webbrowsers with enabled Javascript and HTML5 capabilities for "data-
 The primary purpose of this plugin is to empower WordPress bloggers to create dynamic and interactive coding tutorials and examples effortlessly. By seamlessly adding a "Run" button to HTML code snippets within your blog, it encourages user engagement and learning. Readers can now execute code directly on your website, experiencing real-time results and gaining a deeper understanding of the code you're sharing. This plugin transforms your static code blocks into interactive, hands-on learning opportunities, making your content more engaging and user-friendly for coding enthusiasts and learners alike. It's a valuable tool for anyone looking to elevate their WordPress blog with interactive coding experiences.
 
 ## Source Code ##
-The WordPress plugin [related FAQ page](https://techaroha.com/ai-compiler/) 
+The WordPress plugin [related FAQ page](https://github.com/techaroha/enlighter-extension-with-run-button) 
 
 
 ## Frequently Asked Questions ##
