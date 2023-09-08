@@ -1,16 +1,34 @@
 jQuery(document).ready(function($) {
-    var runButton = $('<div class="enlighter-btn enlighter-btn-run">&#9654; <div class="enlighter-tooltip">Run Code</div></div>');
+
+	//define the run button
+    var runButton = $('<div class="enlighter-btn enlighter-btn-run">&#9654; Run <div class="enlighter-tooltip">Run Code</div></div>');
  
+    // append the run button to enlighter tool bar
     $('.enlighter-toolbar-top').append(runButton); 
 
+    
+    // onclick event of run button
     $('.enlighter-btn-run').click(function() {
     
+    //get the theme of the code block
+    theme_code_div_class_attribute =$(this).parent().parent().attr("class")
+    prefix_theme_class="enlighter-t-" 
+    const regex = /\benlighter-t-\w*/ig;
+    const arr_full_theme_class_names = theme_code_div_class_attribute.match(regex);
+    const full_theme_class_name = arr_full_theme_class_names[0];
+    var theme_name = full_theme_class_name.replace(prefix_theme_class, '');
+   
+    
+    // get the source code
     code_element = this.parentElement.parentElement
-    const container = code_element.querySelector('.enlighter-code');
     const container_raw = code_element.querySelector('.enlighter-raw');
-    langague = $(this).parent().parent().next().attr('data-enlighter-language');
     var code = container_raw.innerHTML
-  
+    
+    // get the programming language select
+    langague = $(this).parent().parent().next().attr('data-enlighter-language');
+    console.log($(this).parent().parent().attr("class"))
+   
+    // check if the compiler api key is defined or not.If not defined we take the default API key
     if (typeof techaroha_compiler_api_key == 'undefined')
         techaroha_compiler_api_key ="DEsPEDyUKA1d9QjUQX1Lz2q5M8glhIhSaNfDD0Me"
         
