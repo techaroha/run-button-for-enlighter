@@ -1,8 +1,26 @@
 jQuery(document).ready(function($) {
 
-	//define the run button
-    var runButton = $('<div class="enlighter-btn enlighter-btn-run">&#9654; Run <div class="enlighter-tooltip">Run Code</div></div>');
+  //get the theme of the code block
+  var theme_name = $('.EnlighterJSRAW.enlighter-origin').attr('data-enlighter-theme');
+  console.log("theme_name: "+theme_name);
  
+  var dark_themes = ["atomic","dracula", "monokai"];
+  var ligth_themes = [  "bootstrap4"];
+  var icon_themes = ["enlighter","godzilla","beyond","classic","mowtwo","eclipse","droide","minimal","rowhammer",];
+
+  var runButton_dark_theme = $('<div class="enlighter-btn enlighter-btn-run" id="dark_btn">Run <div class="enlighter-tooltip">Run Code</div></div>');
+  var runButton_light_theme = $('<div class="enlighter-btn enlighter-btn-run" id="light_btn">Run <div class="enlighter-tooltip">Run Code</div></div>');
+  var runButton_icon_theme = $('<div class="enlighter-btn enlighter-btn-run" id="icon_btn" style="background-color: transparent;border: none;"><span style="text-align: center;font-size: 20px;color: black;border: 1px solid #adadad;border-radius: 4px;margin: 0 0 0 5px;padding: 2px 2px 0px 3px;">&#9654;</span> <div class="enlighter-tooltip">Run Code</div></div>');
+
+  var runButton = runButton_dark_theme
+
+  if ($.inArray(theme_name, ligth_themes) !== -1) {
+    runButton = runButton_light_theme
+  } else if ( ($.inArray(theme_name, icon_themes) !== -1) ) {
+    runButton = runButton_icon_theme
+  }
+
+
     // append the run button to enlighter tool bar
     $('.enlighter-toolbar-top').append(runButton); 
 
@@ -10,14 +28,7 @@ jQuery(document).ready(function($) {
     // onclick event of run button
     $('.enlighter-btn-run').click(function() {
     
-    //get the theme of the code block
-    theme_code_div_class_attribute =$(this).parent().parent().attr("class")
-    prefix_theme_class="enlighter-t-" 
-    const regex = /\benlighter-t-\w*/ig;
-    const arr_full_theme_class_names = theme_code_div_class_attribute.match(regex);
-    const full_theme_class_name = arr_full_theme_class_names[0];
-    var theme_name = full_theme_class_name.replace(prefix_theme_class, '');
-   
+    
     
     // get the source code
     code_element = this.parentElement.parentElement
