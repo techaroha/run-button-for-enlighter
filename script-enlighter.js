@@ -2,21 +2,20 @@ jQuery(document).ready(function ($) {
 
   //get the theme of the code block
   var theme_name = $('.EnlighterJSRAW.enlighter-origin').attr('data-enlighter-theme');
-  console.log("theme_name: " + theme_name);
-
 
   var dark_themes = ["atomic", "dracula", "monokai"]; // Declare an array 'dark_themes' containing theme names for dark themes.
   var ligth_themes = ["bootstrap4"]; // Declare an array 'ligth_themes' containing theme names for light themes. 
   var icon_themes = ["enlighter", "godzilla", "beyond", "classic", "mowtwo", "eclipse", "droide", "minimal", "rowhammer",];
 
   // Create a jQuery object 'runButton_dark_theme' that represents an HTML <div> element with specific classes and attributes.
-  var runButton_dark_theme = $('<div class="enlighter-btn enlighter-btn-run" id="dark_btn">Run <div class="enlighter-tooltip">Run Code</div></div>'); 
+  var runButton_dark_theme = $('<div class="enlighter-btn enlighter-btn-run" id="dark_btn" style="display: inline-flex; border: 1px solid #a6a6a6;  padding: 0.5px 10px 0.5px 10px;">Run <svg width="17" height="17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path d="M9.25 4.75h-2.5a2 2 0 0 0-2 2v10.5a2 2 0 0 0 2 2h10.5a2 2 0 0 0 2-2v-2.5"></path>  <path d="M19.25 9.25v-4.5h-4.5"></path>  <path d="m19 5-7.25 7.25"></path></svg><div class="enlighter-tooltip">Run Code</div></div>'); 
 
   // Create a jQuery object 'runButton_light_theme' that represents an HTML <div> element with specific classes and attributes.
-  var runButton_light_theme = $('<div class="enlighter-btn enlighter-btn-run" id="light_btn">Run <div class="enlighter-tooltip">Run Code</div></div>'); 
+  var runButton_light_theme = $('<div class="enlighter-btn enlighter-btn-run" id="light_btn" style="display: inline-flex;">Run <svg width="17" height="17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path d="M9.25 4.75h-2.5a2 2 0 0 0-2 2v10.5a2 2 0 0 0 2 2h10.5a2 2 0 0 0 2-2v-2.5"></path>  <path d="M19.25 9.25v-4.5h-4.5"></path>  <path d="m19 5-7.25 7.25"></path></svg><div class="enlighter-tooltip">Run Code</div></div>'); 
 
     // Create a jQuery object 'runButton_icon_theme' that represents an HTML <div> element with specific classes and attributes.
   var runButton_icon_theme = $('<div class="enlighter-btn enlighter-btn-run" id="icon_btn" style="background-color: transparent;border: none;"><span style="text-align: center;font-size: 20px;color: black;border: 1px solid #adadad;border-radius: 4px;margin: 0 0 0 5px;padding: 2px 2px 0px 3px;">&#9654;</span> <div class="enlighter-tooltip">Run Code</div></div>');
+  
 
   // Initialize a variable 'runButton' with the 'runButton_dark_theme'.
   var runButton = runButton_dark_theme
@@ -37,17 +36,35 @@ jQuery(document).ready(function ($) {
 
   // onclick event of run button
   $('.enlighter-btn-run').click(function () {
-
-
-
+ 
     // get the source code
     code_element = this.parentElement.parentElement
     const container_raw = code_element.querySelector('.enlighter-raw');
     var code = container_raw.innerHTML
-
+  
+    //HTML Entity Decode for special charecter
+    // Define an array of HTML entities and their corresponding characters
+    var entities = [
+      ['amp', '&'],
+      ['apos', '\''],
+      ['#x27', '\''],
+      ['#x2F', '/'],
+      ['#39', '\''],
+      ['#47', '/'],
+      ['lt', '<'],
+      ['gt', '>'],
+      ['nbsp', ' '],
+      ['quot', '"']
+  ];
+    // Loop through the array of entities
+  for (var i = 0, max = entities.length; i < max; ++i)
+    // Create a regular expression to match the entity in the code
+    // and replace it with the corresponding character
+      code = code.replace(new RegExp('&' + entities[i][0] + ';', 'g'), entities[i][1]);
+ 
     // get the programming language select
     langague = $(this).parent().parent().next().attr('data-enlighter-language');
-    console.log($(this).parent().parent().attr("class"))
+    //console.log($(this).parent().parent().attr("class"))
 
     // check if the compiler api key is defined or not.If not defined we take the default API key
     if (typeof techaroha_compiler_api_key == 'undefined')
@@ -69,8 +86,7 @@ jQuery(document).ready(function ($) {
       }),
     };
     // Send an AJAX request using the specified 'settings'.
-    $.ajax(settings).done(function (response) {
-      console.log(response);
+    $.ajax(settings).done(function (response) { 
       if (response.statusCode == '200') {
         // If the status code is '200' (OK):
         if (response.body.status == 'success') {
@@ -112,5 +128,5 @@ jQuery(document).ready(function ($) {
     });
   });
 
-
+ 
 });
