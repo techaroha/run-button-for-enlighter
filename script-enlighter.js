@@ -1,11 +1,12 @@
 jQuery(document).ready(function ($) {
 
   //get the theme of the code block
-  var theme_name = $('.EnlighterJSRAW.enlighter-origin').attr('data-enlighter-theme');
+  var theme_name = $('.EnlighterJSRAW.enlighter-origin').attr('data-enlighter-theme'); 
 
   var dark_themes = ["atomic", "dracula", "monokai"]; // Declare an array 'dark_themes' containing theme names for dark themes.
   var ligth_themes = ["bootstrap4"]; // Declare an array 'ligth_themes' containing theme names for light themes. 
   var icon_themes = ["enlighter", "godzilla", "beyond", "classic", "mowtwo", "eclipse", "droide", "minimal", "rowhammer",];
+  var default_themes = [""]; // Declare an array 'ligth_themes' containing theme names for light themes. 
 
   // Create a jQuery object 'runButton_dark_theme' that represents an HTML <div> element with specific classes and attributes.
   var runButton_dark_theme = $('<div class="enlighter-btn enlighter-btn-run" id="dark_btn" style="display: inline-flex; border: 1px solid #a6a6a6;  padding: 0.5px 10px 0.5px 10px;">Run <svg width="17" height="17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path d="M9.25 4.75h-2.5a2 2 0 0 0-2 2v10.5a2 2 0 0 0 2 2h10.5a2 2 0 0 0 2-2v-2.5"></path>  <path d="M19.25 9.25v-4.5h-4.5"></path>  <path d="m19 5-7.25 7.25"></path></svg><div class="enlighter-tooltip">Run Code</div></div>'); 
@@ -14,7 +15,7 @@ jQuery(document).ready(function ($) {
   var runButton_light_theme = $('<div class="enlighter-btn enlighter-btn-run" id="light_btn" style="display: inline-flex;">Run <svg width="17" height="17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path d="M9.25 4.75h-2.5a2 2 0 0 0-2 2v10.5a2 2 0 0 0 2 2h10.5a2 2 0 0 0 2-2v-2.5"></path>  <path d="M19.25 9.25v-4.5h-4.5"></path>  <path d="m19 5-7.25 7.25"></path></svg><div class="enlighter-tooltip">Run Code</div></div>'); 
 
     // Create a jQuery object 'runButton_icon_theme' that represents an HTML <div> element with specific classes and attributes.
-  var runButton_icon_theme = $('<div class="enlighter-btn enlighter-btn-run" id="icon_btn" style="background-color: transparent;border: none;"><span style="text-align: center;font-size: 20px;color: black;border: 1px solid #adadad;border-radius: 4px;margin: 0 0 0 5px;padding: 2px 2px 0px 3px;">&#9654;</span> <div class="enlighter-tooltip">Run Code</div></div>');
+  var runButton_icon_theme = $('<div class="enlighter-btn enlighter-btn-run" id="icon_btn" style="background-color: transparent;border: none;"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 2a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5H7Zm8.75 11.299c1-.577 1-2.02 0-2.598l-4.5-2.598A1.5 1.5 0 0 0 9 9.402v5.196a1.5 1.5 0 0 0 2.25 1.3l4.5-2.599Z" fill="#000"/></svg> <div class="enlighter-tooltip">Run Code</div></div>');
   
 
   // Initialize a variable 'runButton' with the 'runButton_dark_theme'.
@@ -22,9 +23,12 @@ jQuery(document).ready(function ($) {
 
   // Check if the value of 'theme_name' exists in the 'light_themes' array.
   if ($.inArray(theme_name, ligth_themes) !== -1) {
-    // If 'theme_name' is in 'light_themes', set 'runButton' to 'runButton_light_theme'.
+    // If 'theme_name' is in 'light_themes', set 'runButton' to 'runButton_light_theme'. 
     runButton = runButton_light_theme
   } else if (($.inArray(theme_name, icon_themes) !== -1)) {
+    // If 'theme_name' is in 'icon_themes', set 'runButton' to 'runButton_icon_theme'.
+    runButton = runButton_icon_theme
+  }else if (($.inArray(theme_name, default_themes) !== -1)) {
     // If 'theme_name' is in 'icon_themes', set 'runButton' to 'runButton_icon_theme'.
     runButton = runButton_icon_theme
   }
@@ -36,7 +40,6 @@ jQuery(document).ready(function ($) {
 
   // onclick event of run button
   $('.enlighter-btn-run').click(function () {
- 
     // get the source code
     code_element = this.parentElement.parentElement
     const container_raw = code_element.querySelector('.enlighter-raw');
