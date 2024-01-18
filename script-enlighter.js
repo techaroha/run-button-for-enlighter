@@ -1,7 +1,7 @@
 jQuery(document).ready(function ($) {
 
   //get the theme of the code block
-  var theme_name = $('.EnlighterJSRAW.enlighter-origin').attr('data-enlighter-theme'); 
+  var theme_name = $('.EnlighterJSRAW.enlighter-origin').attr('data-enlighter-theme');
 
   var dark_themes = ["atomic", "dracula", "monokai"]; // Declare an array 'dark_themes' containing theme names for dark themes.
   var ligth_themes = ["bootstrap4"]; // Declare an array 'ligth_themes' containing theme names for light themes. 
@@ -23,7 +23,7 @@ jQuery(document).ready(function ($) {
 
   // Check if the value of 'theme_name' exists in the 'light_themes' array.
   if ($.inArray(theme_name, ligth_themes) !== -1) {
-    // If 'theme_name' is in 'light_themes', set 'runButton' to 'runButton_light_theme'. 
+    // If 'theme_name' is in 'light_themes', set 'runButton' to 'runButton_light_theme'.
     runButton = runButton_light_theme
   } else if (($.inArray(theme_name, icon_themes) !== -1)) {
     // If 'theme_name' is in 'icon_themes', set 'runButton' to 'runButton_icon_theme'.
@@ -40,6 +40,7 @@ jQuery(document).ready(function ($) {
 
   // onclick event of run button
   $('.enlighter-btn-run').click(function () {
+ 
     // get the source code
     code_element = this.parentElement.parentElement
     const container_raw = code_element.querySelector('.enlighter-raw');
@@ -67,11 +68,10 @@ jQuery(document).ready(function ($) {
  
     // get the programming language select
     langague = $(this).parent().parent().next().attr('data-enlighter-language');
-    //console.log($(this).parent().parent().attr("class"))
-
+    
     // check if the compiler api key is defined or not.If not defined we take the default API key
-    if (typeof techaroha_compiler_api_key == 'undefined')
-      techaroha_compiler_api_key = "DEsPEDyUKA1d9QjUQX1Lz2q5M8glhIhSaNfDD0Me"
+    if (typeof taenlighter_api_key == 'undefined')
+      taenlighter_api_key = "DEsPEDyUKA1d9QjUQX1Lz2q5M8glhIhSaNfDD0Me"
 
     // Define a JavaScript object 'settings' with various configuration properties for an AJAX request.
     var settings = {
@@ -79,7 +79,7 @@ jQuery(document).ready(function ($) {
       "method": "POST",
       "timeout": 0, // Timeout for the request (0 means no timeout).
       "headers": {
-        "x-api-key": techaroha_compiler_api_key, // Custom header with an API key.
+        "x-api-key": taenlighter_api_key, // Custom header with an API key.
         "Content-Type": "application/json"
       },
       // JSON-encoded data to be sent in the request body.

@@ -3,53 +3,56 @@
 Plugin Name: Enlighter – Extension With Run Button
 Description: It is a powerful plugin designed specifically for the Enlighter - Customizable Syntax Highlighter WordPress plugin. It easily integrates with Enlighter, and it gives you a run functionality button on any program on your website.
 Author URI: https://techaroha.com/
-Version: 2.0
+Version: 2.1
 Author: Techaroha Solutions Private Ltd
 */
 
-function is_jjavascript_css_working() {
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+function taenlighter_jscss_check() {
     return file_exists(plugin_dir_path(__FILE__) . 'script-enlighter.js');
 }
 
-function add_api_key_to_header() {
+
+function taenlighter_add_api_key_to_header() {
     // Retrieve the current API key stored in WordPress options.
-    $current_api_key = get_option('techaroha_compiler_api_key'); 
+    $current_api_key = get_option('taenlighter_api_key'); 
     // Check if the API key is not empty.
     if (!empty($current_api_key)) {
          // Output a JavaScript variable in the HTML <head> section with the API key.
-        echo '<script>var techaroha_compiler_api_key = "' . esc_js($current_api_key) . '";</script>';
+        echo '<script>var taenlighter_api_key = "' . esc_js($current_api_key) . '";</script>';
     }
 }
 
 // Hook 'add_api_key_to_header' function to the 'wp_head' action.
-add_action('wp_head', 'add_api_key_to_header');
+add_action('wp_head', 'taenlighter_add_api_key_to_header');
 
-function custom_plugin_menus() {
+function taenlighter_plugin_menus() {
     // Add an options page with a title and capability requirements.
-    add_options_page('Custom Plugin Settings', 'Enlighter – Extension With Run Button', 'manage_options', 'custom-plugin', 'custom_plugin_pages');
+    add_options_page('Custom Plugin Settings', 'Enlighter – Extension With Run Button', 'manage_options', 'custom-plugin', 'taenlighter_plugin_pages');
 }
 
-// Hook 'custom_plugin_menus' function to the 'admin_menu' action.
-add_action('admin_menu', 'custom_plugin_menus');
+// Hook 'taenlighter_plugin_menus' function to the 'admin_menu' action.
+add_action('admin_menu', 'taenlighter_plugin_menus');
 
-function custom_plugin_activation_redirecto() {
-    if (is_admin() && get_option('activate_custom_plugin')) {
-        delete_option('activate_custom_plugin');  
+function taenlighter_plugin_activation_redirecto() {
+    if (is_admin() && get_option('taenlighter_activate_plugin')) {
+        delete_option('taenlighter_activate_plugin');
         wp_safe_redirect(admin_url('options-general.php?page=custom-plugin'));
         exit();  // Terminate script execution to ensure the redirection takes effect.
     }
 }
 
-register_activation_hook(__FILE__, 'custom_plugin_activation_redirecto');
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'custom_plugin_settings_link');
+register_activation_hook(__FILE__, 'taenlighter_plugin_activation_redirecto');
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'taenlighter_plugin_settings_link');
 
-function custom_plugin_settings_link($links) {
+function taenlighter_plugin_settings_link($links) {
     $settings_link = '<a href="options-general.php?page=custom-plugin">Settings</a>';
     array_unshift($links, $settings_link);
     return $links;
 }
 
-function custom_plugin_pages() {
+function taenlighter_plugin_pages() {
     // Output HTML markup to create a page in the WordPress admin panel.
     echo '<div class="wrap">';
     echo '<h2>Enlighter – Extension With Run Button</h2>';
@@ -57,19 +60,19 @@ function custom_plugin_pages() {
     // Check if the 'submit_api_key' form variable is set (indicating that the form has been submitted).
 	if (isset($_POST['submit_api_key'])) {
         // Sanitize and store the submitted API key in the WordPress options.
-        $api_key = sanitize_text_field($_POST['techaroha_compiler_api_key']);
-        update_option('techaroha_compiler_api_key', $api_key);
+        $api_key = sanitize_text_field($_POST['taenlighter_api_key']);
+        update_option('taenlighter_api_key', $api_key);
     }
 
      // Retrieve the current API key from the WordPress options.
-    $current_api_key = get_option('techaroha_compiler_api_key', '');
+    $current_api_key = get_option('taenlighter_api_key', '');
 
     // Output a form for setting the Techaroha AI Online Compiler API Key.
     echo '<form method="post">';
     echo '<table class="form-table">';
     echo '<tr valign="top">';
     echo '<th scope="row">Techaroha AI Online Compiler API Key</th>';
-    echo '<td><input type="text" name="techaroha_compiler_api_key" value="' . esc_attr($current_api_key) . '" /></td>';
+    echo '<td><input type="text" name="taenlighter_api_key" value="' . esc_attr($current_api_key) . '" /></td>';
     echo '</tr>';
     echo '</table>';
     echo '<input type="submit" name="submit_api_key" value="Activate API Key" class="button-primary" />';
@@ -83,16 +86,16 @@ function custom_plugin_pages() {
     echo '</p>'; 
     echo '</li>';
     echo '<li>';
-    echo '<img src="https://cdn-icons-png.flaticon.com/512/9426/9426997.png" alt="Status Icon" class="status-ok">';
+    echo '<img src="' . esc_url(plugins_url('images/status-icon.png', __FILE__)) . '" alt="Status Icon" class="status-ok">';
     echo esc_html__('Online Status', 'custom-image-plugin') . ' - ' . esc_html__('OK', 'custom-image-plugin');
     echo '</li>';
     echo '<li>';
-    echo '<img src="https://cdn-icons-png.flaticon.com/512/9426/9426997.png" alt="Status Icon" class="' . (is_jjavascript_css_working() ? 'status-ok' : 'status-not-ok') . '">';
+    echo '<img src="' . esc_url(plugins_url('images/status-icon.png', __FILE__)) . '" alt="Status Icon" class="' . (taenlighter_jscss_check() ? 'status-ok' : 'status-not-ok') . '">';
     echo esc_html__('Javascript and CSS Working', 'custom-image-plugin') . ' - ';
-    echo is_jjavascript_css_working() ? esc_html__('OK', 'custom-image-plugin') : esc_html__('Not Working', 'custom-image-plugin');
+    echo taenlighter_jscss_check() ? esc_html__('OK', 'custom-image-plugin') : esc_html__('Not Working', 'custom-image-plugin');
     echo '</li>';
     echo '</ul>';
-    echo '<img src="' . plugins_url('images/info-icon.png', __FILE__) . '" alt="Info Icon" class="info-icon">';
+    echo '<img src="' . esc_url(plugins_url('images/info-icon.png', __FILE__)) . '" alt="Info Icon" class="info-icon">';
     echo '<p>The "RUN" button is now available on Enlighter consoles.</p>';
     echo '</div><br>';
 
@@ -149,11 +152,11 @@ function custom_plugin_pages() {
 
 
 
-function custom_plugin_enqueue_scripts() {
+function taenlighter_plugin_enqueue_scripts() {
     // Enqueue a JavaScript file named 'custom-plugin-script' for use on WordPress pages.
     wp_enqueue_script('custom-plugin-script', plugins_url('script-enlighter.js', __FILE__), array('jquery'), '1.0', true);
 }
 
 // Add an action hook to enqueue the custom script when 'wp_enqueue_scripts' is triggered.
-add_action('wp_enqueue_scripts', 'custom_plugin_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'taenlighter_plugin_enqueue_scripts');
 ?>
