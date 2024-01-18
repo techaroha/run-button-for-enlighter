@@ -3,6 +3,9 @@ Contributors: Sagar Salunkhe, Manoj Kolhe , Shailendra Bramhvanshi
 Tags: adding run option in code blocks, compiler, online compiler,  javascript, code, coding, sourcecode,customizable, , html, php, js, c, cpp, c#, ruby, java, python, sql, rust, sql
 Donate link: 
 Requires at least: 6.0
+Tested up to: 6.4
+
+Stable tag: 2.1
 
 License: GPL-2.0
 License URI: https://opensource.org/licenses/gpl-2.0.php
@@ -51,6 +54,11 @@ That's why we've designed the plugin to be flexible and adaptable to your needs.
 We value user feedback and continuously strive to enhance the plugin's capabilities. If you have a specific online compiler in mind that you'd like to see integrated into the plugin, please don't hesitate to reach out to us. You can use our convenient contact form at [https://techaroha.com/contact/](https://techaroha.com/contact/) or send us an email at [support@techaroha.com](mailto:support@techaroha.com).
 
 Our goal is to make your coding experience as seamless and customizable as possible, and we're dedicated to accommodating your compiler preferences and suggestions to provide you with the best possible experience.
+
+### Compiler Servers ###
+The "Enlighter – Extension With Run Button" plugin relies on compiler servers for executing code. By default, the Newtum compiler servers handle the immediate execution of code snippets. This choice provides a quick and efficient solution for users.
+
+However, recognizing diverse user preferences, the plugin is adaptable to different compiler servers powered by the Techaroha AI Compiler. Users can obtain a API key by default embeded in the plugin. This flexibility ensures that the plugin can redirect code execution to the compiler server, enhancing the overall user experience.
 
 ###  Run button extension with other code block plugin ###
 Currently, the "Enlighter – Extension With Run Button" plugin is specifically tailored for use with EnlighterJs code blocks. It seamlessly integrates the Run button extension with this popular code block plugin, offering an interactive coding experience to enhance your website.
