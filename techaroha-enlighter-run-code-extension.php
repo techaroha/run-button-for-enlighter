@@ -3,8 +3,10 @@
 Plugin Name: Enlighter – Extension With Run Button
 Description: It is a powerful plugin designed specifically for the Enlighter - Customizable Syntax Highlighter WordPress plugin. It easily integrates with Enlighter, and it gives you a run functionality button on any program on your website.
 Author URI: https://techaroha.com/
-Version: 2.1
+Version: 2.2
 Author: Techaroha Solutions Private Ltd
+License: GPL-2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -58,10 +60,16 @@ function taenlighter_plugin_pages() {
     echo '<h2>Enlighter – Extension With Run Button</h2>';
     
     // Check if the 'submit_api_key' form variable is set (indicating that the form has been submitted).
-	if (isset($_POST['submit_api_key'])) {
-        // Sanitize and store the submitted API key in the WordPress options.
-        $api_key = sanitize_text_field($_POST['taenlighter_api_key']);
-        update_option('taenlighter_api_key', $api_key);
+    if (isset($_POST['submit_api_key'])) {
+        // Verify nonce
+        if (isset($_POST['submit_api_key_nonce']) && wp_verify_nonce($_POST['submit_api_key_nonce'], 'submit_api_key_nonce')) {
+            // Sanitize and store the submitted API key in the WordPress options.
+            $api_key = sanitize_text_field($_POST['taenlighter_api_key']);
+            update_option('taenlighter_api_key', $api_key);
+        } else {
+            // Nonce verification failed, handle accordingly (e.g., show an error message).
+            echo '<div class="error"><p>Security check failed. Please try again.</p></div>';
+        }
     }
 
      // Retrieve the current API key from the WordPress options.
@@ -69,6 +77,8 @@ function taenlighter_plugin_pages() {
 
     // Output a form for setting the Techaroha AI Online Compiler API Key.
     echo '<form method="post">';
+    // Add nonce field
+    wp_nonce_field('submit_api_key_nonce', 'submit_api_key_nonce');
     echo '<table class="form-table">';
     echo '<tr valign="top">';
     echo '<th scope="row">Techaroha AI Online Compiler API Key</th>';
@@ -87,12 +97,12 @@ function taenlighter_plugin_pages() {
     echo '</li>';
     echo '<li>';
     echo '<img src="' . esc_url(plugins_url('images/status-icon.png', __FILE__)) . '" alt="Status Icon" class="status-ok">';
-    echo esc_html__('Online Status', 'custom-image-plugin') . ' - ' . esc_html__('OK', 'custom-image-plugin');
+    echo esc_html__('Online Status', 'enlighter-extension-with-run-button') . ' - ' . esc_html__('OK', 'enlighter-extension-with-run-button');
     echo '</li>';
     echo '<li>';
     echo '<img src="' . esc_url(plugins_url('images/status-icon.png', __FILE__)) . '" alt="Status Icon" class="' . (taenlighter_jscss_check() ? 'status-ok' : 'status-not-ok') . '">';
-    echo esc_html__('Javascript and CSS Working', 'custom-image-plugin') . ' - ';
-    echo taenlighter_jscss_check() ? esc_html__('OK', 'custom-image-plugin') : esc_html__('Not Working', 'custom-image-plugin');
+    echo esc_html__('Javascript and CSS Working', 'enlighter-extension-with-run-button') . ' - ';
+    echo taenlighter_jscss_check() ? esc_html__('OK', 'enlighter-extension-with-run-button') : esc_html__('Not Working', 'enlighter-extension-with-run-button');
     echo '</li>';
     echo '</ul>';
     echo '<img src="' . esc_url(plugins_url('images/info-icon.png', __FILE__)) . '" alt="Info Icon" class="info-icon">';

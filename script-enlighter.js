@@ -75,7 +75,7 @@ jQuery(document).ready(function ($) {
 
     // Define a JavaScript object 'settings' with various configuration properties for an AJAX request.
     var settings = {
-      "url": "https://zk5o9y8pse.execute-api.ap-south-1.amazonaws.com/default/run_code",
+      "url": "https://api-compiler.techaroha.com/default/run_code",
       "method": "POST",
       "timeout": 0, // Timeout for the request (0 means no timeout).
       "headers": {
