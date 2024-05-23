@@ -1,10 +1,12 @@
 <?php
 /*
-Plugin Name: Enlighter – Extension With Run Button
+Plugin Name: Run Button For Enlighter
 Description: It is a powerful plugin designed specifically for the Enlighter - Customizable Syntax Highlighter WordPress plugin. It easily integrates with Enlighter, and it gives you a run functionality button on any program on your website.
-Author URI: https://techaroha.com/
-Version: 2.2
-Author: Techaroha Solutions Private Ltd
+Author URI: https://techaroha.com
+Author: Manoj Kolhe
+Version: 2.3
+Requires PHP: 5.6
+Plugin URI: https://github.com/techaroha/run-button-for-enlighter
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -18,11 +20,11 @@ function taenlighter_jscss_check() {
 
 function taenlighter_add_api_key_to_header() {
     // Retrieve the current API key stored in WordPress options.
-    $current_api_key = get_option('taenlighter_api_key'); 
+    $current_api_key = get_option('default_api_key'); 
     // Check if the API key is not empty.
     if (!empty($current_api_key)) {
          // Output a JavaScript variable in the HTML <head> section with the API key.
-        echo '<script>var taenlighter_api_key = "' . esc_js($current_api_key) . '";</script>';
+        echo '<script>var default_api_key = "' . esc_js($current_api_key) . '";</script>';
     }
 }
 
@@ -62,10 +64,10 @@ function taenlighter_plugin_pages() {
     // Check if the 'submit_api_key' form variable is set (indicating that the form has been submitted).
     if (isset($_POST['submit_api_key'])) {
         // Verify nonce
-        if (isset($_POST['submit_api_key_nonce']) && wp_verify_nonce($_POST['submit_api_key_nonce'], 'submit_api_key_nonce')) {
+        if (isset($_POST['submit_api_key_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['submit_api_key_nonce'])), 'submit_api_key_nonce')) {
             // Sanitize and store the submitted API key in the WordPress options.
-            $api_key = sanitize_text_field($_POST['taenlighter_api_key']);
-            update_option('taenlighter_api_key', $api_key);
+            $api_key = sanitize_text_field($_POST['default_api_key']);
+            update_option('default_api_key', $api_key);
         } else {
             // Nonce verification failed, handle accordingly (e.g., show an error message).
             echo '<div class="error"><p>Security check failed. Please try again.</p></div>';
@@ -73,7 +75,7 @@ function taenlighter_plugin_pages() {
     }
 
      // Retrieve the current API key from the WordPress options.
-    $current_api_key = get_option('taenlighter_api_key', '');
+    $current_api_key = get_option('default_api_key', '');
 
     // Output a form for setting the Techaroha AI Online Compiler API Key.
     echo '<form method="post">';
@@ -82,7 +84,7 @@ function taenlighter_plugin_pages() {
     echo '<table class="form-table">';
     echo '<tr valign="top">';
     echo '<th scope="row">Techaroha AI Online Compiler API Key</th>';
-    echo '<td><input type="text" name="taenlighter_api_key" value="' . esc_attr($current_api_key) . '" /></td>';
+    echo '<td><input type="text" name="default_api_key" value="' . esc_attr($current_api_key) . '" /></td>';
     echo '</tr>';
     echo '</table>';
     echo '<input type="submit" name="submit_api_key" value="Activate API Key" class="button-primary" />';

@@ -1,12 +1,12 @@
 jQuery(document).ready(function ($) {
 
-  //get the theme of the code block
+  //get the theme name of the code block
   var theme_name = $('.EnlighterJSRAW.enlighter-origin').attr('data-enlighter-theme');
-
-  var dark_themes = ["atomic", "dracula", "monokai"]; // Declare an array 'dark_themes' containing theme names for dark themes.
+  
+  // Declare an array
   var ligth_themes = ["bootstrap4"]; // Declare an array 'ligth_themes' containing theme names for light themes. 
-  var icon_themes = ["enlighter", "godzilla", "beyond", "classic", "mowtwo", "eclipse", "droide", "minimal", "rowhammer",];
-  var default_themes = [""]; // Declare an array 'ligth_themes' containing theme names for light themes. 
+  var icon_themes = ["enlighter", "godzilla", "beyond", "classic", "mowtwo", "eclipse", "droide", "minimal", "rowhammer",];// Declare an array 'icon_themes' containing theme names for icons.  
+  var default_themes = ["atomic", "dracula", "monokai"]; // Declare an array 'default_themes' containing theme names for all themes. 
 
   // Create a jQuery object 'runButton_dark_theme' that represents an HTML <div> element with specific classes and attributes.
   var runButton_dark_theme = $('<div class="enlighter-btn enlighter-btn-run" id="dark_btn" style="display: inline-flex; border: 1px solid #a6a6a6;  padding: 0.5px 10px 0.5px 10px;">Run <svg width="17" height="17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">  <path d="M9.25 4.75h-2.5a2 2 0 0 0-2 2v10.5a2 2 0 0 0 2 2h10.5a2 2 0 0 0 2-2v-2.5"></path>  <path d="M19.25 9.25v-4.5h-4.5"></path>  <path d="m19 5-7.25 7.25"></path></svg><div class="enlighter-tooltip">Run Code</div></div>'); 
@@ -70,16 +70,16 @@ jQuery(document).ready(function ($) {
     langague = $(this).parent().parent().next().attr('data-enlighter-language');
     
     // check if the compiler api key is defined or not.If not defined we take the default API key
-    if (typeof taenlighter_api_key == 'undefined')
-      taenlighter_api_key = "DEsPEDyUKA1d9QjUQX1Lz2q5M8glhIhSaNfDD0Me"
+    if (typeof default_api_key == 'undefined')
+      default_api_key = "DEsPEDyUKA1d9QjUQX1Lz2q5M8glhIhSaNfDD0Me"
 
     // Define a JavaScript object 'settings' with various configuration properties for an AJAX request.
     var settings = {
-      "url": "https://api-compiler.techaroha.com/default/run_code",
+      "url": "https://api-compiler.techaroha.com/run_code",
       "method": "POST",
       "timeout": 0, // Timeout for the request (0 means no timeout).
       "headers": {
-        "x-api-key": taenlighter_api_key, // Custom header with an API key.
+        "x-api-key": default_api_key, // Custom header with an API key.
         "Content-Type": "application/json"
       },
       // JSON-encoded data to be sent in the request body.
