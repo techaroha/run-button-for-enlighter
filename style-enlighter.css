@@ -1,0 +1,45 @@
+.wrap {
+    padding: 20px !important;
+    background-color: #f5f5f5 !important;
+}
+
+h1, h2 {
+    margin-bottom: 20px !important;
+}
+
+.form-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 30px !important;
+}
+
+.form-table th,
+.form-table td {
+    padding: 10px !important;
+    border: 1px solid #ccc !important;
+}
+
+.status-list {
+    list-style: none !important;
+    padding: 0 !important;
+}
+
+.status-list li {
+    margin-bottom: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.status-list img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 10px !important;
+}
+
+.status-ok {
+    color: green !important;
+}
+
+.status-not-ok {
+    color: red !important;
+}
