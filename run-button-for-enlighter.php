@@ -4,7 +4,7 @@ Plugin Name: Run Button For Enlighter
 Description: It is a powerful plugin designed specifically for the Enlighter - Customizable Syntax Highlighter WordPress plugin. It easily integrates with Enlighter, and it gives you a run functionality button on any program on your website.
 Author URI: https://techaroha.com
 Author: Manoj Kolhe
-Version: 2.3
+Version: 2.4
 Requires PHP: 5.6
 Plugin URI: https://github.com/techaroha/run-button-for-enlighter
 License: GPL-2.0
